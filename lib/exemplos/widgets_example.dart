@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class WidgetsExample extends StatelessWidget {
+  const WidgetsExample({super.key});
 
   // This widget is the root of your application.
   @override
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              const Row(
                 children: [
                   CircleAvatar(
                     child: Text('R'),

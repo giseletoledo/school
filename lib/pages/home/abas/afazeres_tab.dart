@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AfazeresTab extends StatelessWidget {
-  int acumulador = 1;
+class AfazeresTab extends StatefulWidget {
+  const AfazeresTab({super.key});
 
-  AfazeresTab({super.key});
+  @override
+  State<StatefulWidget> createState() => _AfazeresTab();
+}
+
+class _AfazeresTab extends State<AfazeresTab> {
+  int acumulador = 1;
+  int acumulador2 = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +18,9 @@ class AfazeresTab extends StatelessWidget {
         Text('$acumulador'),
         ElevatedButton(
           onPressed: () {
-            acumulador = acumulador + 1;
+            setState(() {
+              acumulador = acumulador + 1;
+            });
           },
           child: Text('+1'),
         )
