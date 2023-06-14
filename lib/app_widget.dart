@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school/spacer_component.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,14 +28,14 @@ class MyApp extends StatelessWidget {
                           CircleAvatar(
                             child: Text('G'),
                           ),
-                          SizedBox(
-                            width: 8,
-                          ),
+                          SpacerComponent(),
                           Text(
                             'Gisele',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Spacer(),
+                          SpacerComponent(
+                            isFull: true,
+                          ),
                           IconButton(
                             onPressed: () {},
                             icon: Icon(Icons.more_vert, color: Colors.grey),
