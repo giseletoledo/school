@@ -2,8 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:school/pages/home/abas/afazeres_tab.dart';
 import 'package:school/pages/home/abas/perfil_tab.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late int indexPage;
+
+  void mudaPagina(int index) {
+    setState(() {
+      indexPage = index;
+    });
+  }
+
+  @override
+  void initState() {
+    indexPage = 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +33,20 @@ class HomePage extends StatelessWidget {
     ];
 
     final List<Widget> _conteudos = [
-      AfazeresTab(),
+      const AfazeresTab(
+        valorinicial: 0,
+      ),
       const PerfilTab(),
     ];
 
     return Scaffold(
       appBar: AppBar(title: Text('School')),
-      body: _conteudos.elementAt(0),
-      bottomNavigationBar: BottomNavigationBar(currentIndex: 0, items: _abas),
+      body: _conteudos[indexPage],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: indexPage,
+        items: _abas,
+        onTap: mudaPagina,
+      ),
     );
   }
 }
