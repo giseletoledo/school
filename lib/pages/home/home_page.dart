@@ -34,14 +34,14 @@ class _HomePageState extends State<HomePage> {
 
     final List<Widget> _conteudos = [
       const AfazeresTab(
-        valorinicial: 0,
+        valorInicial: 0,
       ),
       const PerfilTab(),
     ];
 
     return Scaffold(
       appBar: AppBar(title: Text('School')),
-      body: _conteudos[indexPage],
+      body: _conteudos.elementAt(indexPage),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: indexPage,
         items: _abas,

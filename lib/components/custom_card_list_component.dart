@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:school/components/spacer_component.dart';
 
-class CustomCard extends StatelessWidget {
+class CustomCardListItem extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final String title;
 
-  const CustomCard({
+  const CustomCardListItem({
     super.key,
     required this.icon,
     required this.iconColor,

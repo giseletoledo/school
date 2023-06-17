@@ -16,9 +16,9 @@ class PerfilTab extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(children: [
-              const CircleAvatar(child: Text('R')),
+              const CircleAvatar(child: Text('G')),
               const SpacerComponent(size: 8, isHorizontal: true),
-              const Text('Rafael Silva',
+              const Text('Gisele',
                   style: TextStyle(fontWeight: FontWeight.bold)),
               const SpacerComponent(isFull: true),
               IconButtonComponent(

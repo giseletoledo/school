@@ -11,7 +11,7 @@ class CupertinoExemploApp extends StatelessWidget {
       home: CupertinoPageScaffold(
           child: Center(
         child: CupertinoButton.filled(
-          child: Text('botão'),
+          child: const Text('botão'),
           onPressed: () {},
         ),
       )),

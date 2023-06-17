@@ -14,26 +14,27 @@ class Desafio1 extends StatelessWidget {
         child: Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(16.0),
+            // ignore: avoid_unnecessary_containers
             child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Card(
-                    margin: EdgeInsets.all(0),
+                    margin: const EdgeInsets.all(0),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 8),
                       child: Row(
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             child: Text('G'),
                           ),
-                          SpacerComponent(),
-                          Text(
+                          const SpacerComponent(),
+                          const Text(
                             'Gisele',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          SpacerComponent(
+                          const SpacerComponent(
                             isFull: true,
                           ),
                           IconButton(
@@ -45,26 +46,26 @@ class Desafio1 extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Row(
                       children: [
                         Text('Minhas estatísticas'),
                       ],
                     ),
                   ),
-                  Row(children: [
+                  const Row(children: [
                     Icon(Icons.list, color: Colors.grey),
                     Text('Total de notas: 0'),
                   ]),
-                  Row(
+                  const Row(
                     children: [
                       Icon(Icons.check, color: Colors.grey),
                       Text('Concluídas: 0'),
                     ],
                   ),
                   const Divider(),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Configurações'),
@@ -73,7 +74,7 @@ class Desafio1 extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Tema escuro'),
+                      const Text('Tema escuro'),
                       Switch(value: true, onChanged: (val) {}),
                     ],
                   ),
