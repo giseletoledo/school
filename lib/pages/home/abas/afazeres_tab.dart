@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:school/components/novo_item_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:school/pages/home/components/novo_item_widget.dart';
 import 'package:school/components/spacer_component.dart';
 import 'package:school/entities/afazer_entity.dart';
 
-import '../../../components/item_widget.dart';
+import '../../../providers/afazer_provider.dart';
+import '../components/item_widget.dart';
 
 class AfazeresTab extends StatefulWidget {
   final int valorInicial;
@@ -16,29 +18,16 @@ class AfazeresTab extends StatefulWidget {
 }
 
 class _AfazeresTab extends State<AfazeresTab> {
-  late List<AfazerEntity> _listaAfazeres;
+  late AfazerProvider store;
 
   @override
   void initState() {
-    _listaAfazeres = [
-      AfazerEntity(
-          uuid: 'teste1',
-          titulo: 'Teste 1',
-          dataInicio: DateTime.now(),
-          dataFim: DateTime.now(),
-          isConcluido: true),
-      AfazerEntity(
-          uuid: 'teste2',
-          titulo: 'Teste 2',
-          dataInicio: DateTime.now(),
-          dataFim: DateTime.now(),
-          isConcluido: false),
-    ];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    store = Provider.of<AfazerProvider>(context);
     return Column(
       children: [
         ElevatedButton(
@@ -47,11 +36,11 @@ class _AfazeresTab extends State<AfazeresTab> {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 400,
+          height: 500,
           child: ListView.builder(
-            itemCount: _listaAfazeres.length,
+            itemCount: store.listaAfazeres.length,
             itemBuilder: (context, index) {
-              final item = _listaAfazeres.elementAt(index);
+              final item = store.listaAfazeres.elementAt(index);
               return Dismissible(
                 key: Key(item.uuid),
                 onDismissed: (direction) {
@@ -82,10 +71,7 @@ class _AfazeresTab extends State<AfazeresTab> {
           contentPadding: const EdgeInsets.all(16.0),
           children: [
             NovoItemWidget(callback: (item) {
-              _listaAfazeres.add(item);
-              setState(() {
-                _listaAfazeres = _listaAfazeres;
-              });
+              store.listaAfazeres = [...store.listaAfazeres, item];
             })
           ],
         );
@@ -94,9 +80,9 @@ class _AfazeresTab extends State<AfazeresTab> {
   }
 
   void handleExcluir(int index) {
-    _listaAfazeres.removeAt(index);
+    /*  _listaAfazeres.removeAt(index);
     setState(() {
       _listaAfazeres = _listaAfazeres;
-    });
+    }); */
   }
 }

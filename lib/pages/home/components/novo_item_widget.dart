@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:school/components/spacer_component.dart';
+import 'package:uuid/uuid.dart';
 
-import '../entities/afazer_checklist_entity.dart';
-import '../entities/afazer_entity.dart';
-import 'icon_button_component.dart';
+import '../../../entities/afazer_checklist_entity.dart';
+import '../../../entities/afazer_entity.dart';
+import '../../../components/icon_button_component.dart';
 
 class NovoItemWidget extends StatefulWidget {
   final void Function(AfazerEntity item) callback;
@@ -13,7 +14,10 @@ class NovoItemWidget extends StatefulWidget {
   State<NovoItemWidget> createState() => _NovoItemWidgetState();
 }
 
-enum TipoLista { lembrete, tarefa }
+enum TipoLista {
+  lembrete,
+  tarefa,
+}
 
 class _NovoItemWidgetState extends State<NovoItemWidget> {
   final _formKey = GlobalKey<FormState>();
@@ -46,7 +50,7 @@ class _NovoItemWidgetState extends State<NovoItemWidget> {
     final isValido = _formKey.currentState!.validate();
     if (isValido) {
       final item = AfazerEntity(
-        uuid: 'xpto',
+        uuid: const Uuid().v4(),
         titulo: _titleController.text,
         dataInicio: DateTime.now(),
         dataFim: DateTime.now(),

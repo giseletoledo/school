@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:school/entities/afazer_checklist_entity.dart';
 
 class AfazerEntity {
@@ -8,15 +7,43 @@ class AfazerEntity {
   DateTime dataFim;
   bool? isConcluido;
   List<AfazerChecklistEntity>? conteudos;
-  String? imagem;
+  String? image;
 
   AfazerEntity({
     required this.uuid,
     required this.titulo,
     required this.dataInicio,
     required this.dataFim,
-    this.isConcluido,
-    this.conteudos,
-    this.imagem,
+    this.conteudos = const [],
+    this.isConcluido = false,
+    this.image,
   });
+
+  factory AfazerEntity.fromJson(Map<String, dynamic> json) {
+    return AfazerEntity(
+      uuid: json['uuid'],
+      titulo: json['titulo'],
+      dataInicio: DateTime.fromMicrosecondsSinceEpoch(json['dataInicio']),
+      dataFim: DateTime.fromMicrosecondsSinceEpoch(json['dataFim']),
+      isConcluido: json['isConcluido'],
+      conteudos: AfazerChecklistEntity.fromJsonList(json['conteudos']),
+      image: json['image'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'uuid': uuid,
+      'titulo': titulo,
+      'dataInicio': dataInicio.microsecondsSinceEpoch,
+      'dataFim': dataFim.microsecondsSinceEpoch,
+      'isConcluido': isConcluido,
+      'conteudos': conteudos,
+      if (image != null) 'image': image,
+    };
+  }
+
+  static List<AfazerEntity> fromJsonList(List<dynamic>? json) {
+    return json?.map((item) => AfazerEntity.fromJson(item)).toList() ?? [];
+  }
 }

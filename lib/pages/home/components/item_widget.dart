@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:school/components/spacer_component.dart';
 import 'package:school/entities/afazer_entity.dart';
 
-import 'icon_button_component.dart';
+import '../../../components/icon_button_component.dart';
 
 class ItemWidget extends StatelessWidget {
   final AfazerEntity item;
