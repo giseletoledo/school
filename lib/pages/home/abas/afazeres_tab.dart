@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:school/components/novo_item_widget.dart';
 import 'package:school/components/spacer_component.dart';
 import 'package:school/entities/afazer_entity.dart';
 
-import '../../../components/custom_card_list_component.dart';
+import '../../../components/item_widget.dart';
 
 class AfazeresTab extends StatefulWidget {
   final int valorInicial;
@@ -51,7 +52,6 @@ class _AfazeresTab extends State<AfazeresTab> {
             itemCount: _listaAfazeres.length,
             itemBuilder: (context, index) {
               final item = _listaAfazeres.elementAt(index);
-              final isConcluido = item.isConcluido ?? false;
               return Dismissible(
                 key: Key(item.uuid),
                 onDismissed: (direction) {
@@ -59,10 +59,11 @@ class _AfazeresTab extends State<AfazeresTab> {
                     handleExcluir(index);
                   }
                 },
-                child: CustomCardListItem(
-                  icon: isConcluido ? Icons.done_all : Icons.done,
-                  iconColor: isConcluido ? Colors.green : Colors.grey,
-                  title: item.titulo,
+                child: ItemWidget(
+                  item: item,
+                  onPressed: () {
+                    handleAdicionar();
+                  },
                 ),
               );
             },
@@ -74,19 +75,22 @@ class _AfazeresTab extends State<AfazeresTab> {
   }
 
   void handleAdicionar() {
-    final item = AfazerEntity(
-      uuid: 'teste3',
-      titulo: 'Teste 3',
-      dataInicio: DateTime.now(),
-      dataFim: DateTime.now(),
-      isConcluido: false,
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          contentPadding: const EdgeInsets.all(16.0),
+          children: [
+            NovoItemWidget(callback: (item) {
+              _listaAfazeres.add(item);
+              setState(() {
+                _listaAfazeres = _listaAfazeres;
+              });
+            })
+          ],
+        );
+      },
     );
-
-    _listaAfazeres.add(item);
-
-    setState(() {
-      _listaAfazeres = _listaAfazeres;
-    });
   }
 
   void handleExcluir(int index) {

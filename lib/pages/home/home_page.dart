@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school/components/app_bar_component.dart';
 import 'package:school/pages/home/abas/afazeres_tab.dart';
 import 'package:school/pages/home/abas/perfil_tab.dart';
 
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text('School')),
+      appBar: const AppBarComponent(),
       body: _conteudos.elementAt(indexPage),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: indexPage,

@@ -39,7 +39,8 @@ class Desafio1 extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.more_vert, color: Colors.grey),
+                            icon:
+                                const Icon(Icons.more_vert, color: Colors.grey),
                           )
                         ],
                       ),

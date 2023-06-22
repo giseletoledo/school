@@ -21,9 +21,9 @@ class WidgetsExample extends StatelessWidget {
                   )
                 ],
               ),
-              Text('Texto 1'),
-              Text('Texto 2'),
-              Text('Texto 3'),
+              const Text('Texto 1'),
+              const Text('Texto 2'),
+              const Text('Texto 3'),
               const Divider(),
               const Row(
                 children: [
