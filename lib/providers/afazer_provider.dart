@@ -15,6 +15,18 @@ class AfazerProvider with ChangeNotifier {
     listaAfazeres = await service.buscar();
   }
 
+  adicionarItem(AfazerEntity item) {
+    listaAfazeres.add(item);
+    service.salvar(listaAfazeres);
+    notifyListeners();
+  }
+
+  removerItem(AfazerEntity item) {
+    listaAfazeres.remove(item);
+    service.salvar(listaAfazeres);
+    notifyListeners();
+  }
+
   List<AfazerEntity> get listaAfazeres => _listaAfazeres;
 
   set listaAfazeres(List<AfazerEntity> val) {

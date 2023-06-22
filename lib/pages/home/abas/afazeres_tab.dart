@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school/pages/home/components/novo_item_widget.dart';
 import 'package:school/components/spacer_component.dart';
-import 'package:school/entities/afazer_entity.dart';
 
+import '../../../entities/afazer_entity.dart';
 import '../../../providers/afazer_provider.dart';
 import '../components/item_widget.dart';
 
@@ -71,7 +71,7 @@ class _AfazeresTab extends State<AfazeresTab> {
           contentPadding: const EdgeInsets.all(16.0),
           children: [
             NovoItemWidget(callback: (item) {
-              store.listaAfazeres = [...store.listaAfazeres, item];
+              store.adicionarItem(item);
             })
           ],
         );
@@ -80,9 +80,7 @@ class _AfazeresTab extends State<AfazeresTab> {
   }
 
   void handleExcluir(int index) {
-    /*  _listaAfazeres.removeAt(index);
-    setState(() {
-      _listaAfazeres = _listaAfazeres;
-    }); */
+    AfazerEntity item = store.listaAfazeres[index];
+    store.removerItem(item);
   }
 }
