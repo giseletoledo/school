@@ -57,17 +57,16 @@ class _NovoItemWidgetState extends State<NovoItemWidget> {
         conteudos: [],
       );
 
-      bool valid = false;
+      bool valid = true;
       if (dropdownValue == TipoLista.tarefa) {
         final isTarefasValidas = _formKeyTarefas.currentState!.validate();
         if (isTarefasValidas) {
-          valid = true;
           for (final value in itens) {
             item.conteudos!.add(AfazerChecklistEntity(titulo: value.text));
           }
+        } else {
+          valid = false;
         }
-      } else {
-        valid = true;
       }
 
       if (valid) {

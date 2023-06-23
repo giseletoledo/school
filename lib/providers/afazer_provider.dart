@@ -16,12 +16,14 @@ class AfazerProvider with ChangeNotifier {
   }
 
   adicionarItem(AfazerEntity item) {
+    print(item);
     listaAfazeres.add(item);
     service.salvar(listaAfazeres);
     notifyListeners();
   }
 
   removerItem(AfazerEntity item) {
+    print(item.toString());
     listaAfazeres.remove(item);
     service.salvar(listaAfazeres);
     notifyListeners();

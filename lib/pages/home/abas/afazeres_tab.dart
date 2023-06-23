@@ -28,38 +28,41 @@ class _AfazeresTab extends State<AfazeresTab> {
   @override
   Widget build(BuildContext context) {
     store = Provider.of<AfazerProvider>(context);
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: handleAdicionar,
-          child: const Text('Adicionar'),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 500,
-          child: ListView.builder(
-            itemCount: store.listaAfazeres.length,
-            itemBuilder: (context, index) {
-              final item = store.listaAfazeres.elementAt(index);
-              return Dismissible(
-                key: Key(item.uuid),
-                onDismissed: (direction) {
-                  if (direction == DismissDirection.startToEnd) {
-                    handleExcluir(index);
-                  }
-                },
-                child: ItemWidget(
-                  item: item,
-                  onPressed: () {
-                    handleAdicionar();
-                  },
-                ),
-              );
-            },
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ElevatedButton(
+            onPressed: handleAdicionar,
+            child: const Text('Adicionar'),
           ),
-        ),
-        const SpacerComponent(),
-      ],
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 500,
+            child: ListView.builder(
+              itemCount: store.listaAfazeres.length,
+              itemBuilder: (context, index) {
+                final item = store.listaAfazeres.elementAt(index);
+                return Dismissible(
+                  key: Key(item.uuid),
+                  onDismissed: (direction) {
+                    if (direction == DismissDirection.startToEnd ||
+                        direction == DismissDirection.endToStart) {
+                      handleExcluir(index);
+                    }
+                  },
+                  child: ItemWidget(
+                    item: item,
+                    onPressed: () {
+                      handleAdicionar();
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+          const SpacerComponent(),
+        ],
+      ),
     );
   }
 
