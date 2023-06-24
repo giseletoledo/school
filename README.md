@@ -7,5 +7,5 @@ Curso de Flutter na prática
 <p align="center">
 <img width="33%" src="https://github.com/giseletoledo/school/blob/main/screenshots/tela_lembrete.png" alt="Screenshot detalhe do lembrete">
 
-<img width="33%" src="https://github.com/giseletoledo/MoviesApp/blob/master/screenshots/tela_tarefa.png" alt="Screenshot detalhe de tarefa">
+<img width="33%" src="https://github.com/giseletoledo/school/blob/main/screenshots/tela_tarefa.png" alt="Screenshot detalhe de tarefa">
 </p>
