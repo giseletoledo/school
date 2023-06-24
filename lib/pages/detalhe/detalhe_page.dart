@@ -27,15 +27,43 @@ class _DetalhePageState extends State<DetalhePage> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    store = Provider.of<AfazerProvider>(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     store = Provider.of<AfazerProvider>(context);
+
     return BodyComponent(
-      child: Column(children: [
-        DetalheHeaderWidget(
-          item: store.listaAfazeres.elementAt(0),
-          onEdit: onEditImage,
-        ),
-      ]),
+      child: Column(
+        children: [
+          DetalheHeaderWidget(
+            item: store.listaAfazeres.elementAt(0),
+            onEdit: onEditImage,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: store.listaAfazeres.length,
+              itemBuilder: (context, index) {
+                final item = store.listaAfazeres.elementAt(index);
+                return ListTile(
+                  leading: Checkbox(
+                    value: item.isConcluido,
+                    onChanged: (value) {
+                      setState(() {
+                        item.isConcluido = value ?? false;
+                      });
+                    },
+                  ),
+                  title: Text(item.titulo),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
