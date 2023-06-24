@@ -20,7 +20,14 @@ class _AfazeresTab extends State<AfazeresTab> {
   late AfazerProvider store;
 
   void onDetalhes(AfazerEntity item, int idx) {
-    Navigator.pushNamed(context, AppRoutes.detalhe);
+    Navigator.pushNamed(
+      context,
+      AppRoutes.detalhe,
+      arguments: {
+        'item': item,
+        'index': idx,
+      },
+    );
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:school/entities/afazer_entity.dart';
 
 import '../../components/body_component.dart';
 import '../../providers/afazer_provider.dart';
@@ -8,7 +9,10 @@ import '../../services/picker_service.dart';
 import 'components/detalhe_header.dart';
 
 class DetalhePage extends StatefulWidget {
-  const DetalhePage({super.key});
+  final AfazerEntity item;
+  final int index;
+
+  const DetalhePage({super.key, required this.item, required this.index});
 
   @override
   State<DetalhePage> createState() => _DetalhePageState();
@@ -22,7 +26,7 @@ class _DetalhePageState extends State<DetalhePage> {
     final image = await pickerService.getImage(ImageSource.gallery);
     if (image != null) {
       final base64 = pickerService.base64(await image.readAsBytes());
-      store.atualizarItemAfazer(0, base64);
+      store.atualizarItemAfazer(widget.index, base64);
     }
   }
 
@@ -40,7 +44,7 @@ class _DetalhePageState extends State<DetalhePage> {
       child: Column(
         children: [
           DetalheHeaderWidget(
-            item: store.listaAfazeres.elementAt(0),
+            item: widget.item,
             onEdit: onEditImage,
           ),
           Expanded(
