@@ -8,10 +8,9 @@ import '../../../providers/afazer_provider.dart';
 import '../components/item_widget.dart';
 
 class AfazeresTab extends StatefulWidget {
-  final int valorInicial;
-  final void Function(int tabIndex)? callback;
-
-  const AfazeresTab({super.key, required this.valorInicial, this.callback});
+  const AfazeresTab({
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _AfazeresTab();
@@ -32,6 +31,7 @@ class _AfazeresTab extends State<AfazeresTab> {
   @override
   Widget build(BuildContext context) {
     store = Provider.of<AfazerProvider>(context);
+
     return ListView.builder(
       itemCount: store.listaAfazeres.length,
       itemBuilder: (context, index) {
