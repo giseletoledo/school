@@ -9,7 +9,7 @@ class WidgetsExample extends StatelessWidget {
     return MaterialApp(
       title: 'School',
       home: Scaffold(
-        body: Container(
+        body: SizedBox(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
