@@ -7,6 +7,13 @@ class AfazerProvider with ChangeNotifier {
   final service = AfazerService();
   List<AfazerEntity> _listaAfazeres = [];
 
+  List<AfazerEntity> get listaAfazeres => _listaAfazeres;
+
+  set listaAfazeres(List<AfazerEntity> val) {
+    _listaAfazeres = val;
+    notifyListeners();
+  }
+
   AfazerProvider() {
     buscarAfazeres();
   }
@@ -15,24 +22,20 @@ class AfazerProvider with ChangeNotifier {
     listaAfazeres = await service.buscar();
   }
 
+  void atualizarItemAfazer(int idx, String image) {
+    listaAfazeres.elementAt(idx).image = image;
+    notifyListeners();
+  }
+
   adicionarItem(AfazerEntity item) {
-    print(item);
-    listaAfazeres.add(item);
+    listaAfazeres = [item, ...listaAfazeres];
     service.salvar(listaAfazeres);
     notifyListeners();
   }
 
   removerItem(AfazerEntity item) {
-    print(item.toString());
     listaAfazeres.remove(item);
     service.salvar(listaAfazeres);
-    notifyListeners();
-  }
-
-  List<AfazerEntity> get listaAfazeres => _listaAfazeres;
-
-  set listaAfazeres(List<AfazerEntity> val) {
-    _listaAfazeres = val;
     notifyListeners();
   }
 }

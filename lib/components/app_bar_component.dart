@@ -12,6 +12,13 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(title: Text(titulo));
+    return AppBar(
+      title: Text(titulo),
+      actions: [
+        CircleAvatar(
+          child: Text('G'),
+        )
+      ],
+    );
   }
 }
