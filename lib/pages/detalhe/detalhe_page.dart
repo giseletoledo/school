@@ -47,25 +47,27 @@ class _DetalhePageState extends State<DetalhePage> {
             item: widget.item,
             onEdit: onEditImage,
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: store.listaAfazeres.length,
-              itemBuilder: (context, index) {
-                final item = store.listaAfazeres.elementAt(index);
-                return ListTile(
-                  leading: Checkbox(
-                    value: item.isConcluido,
-                    onChanged: (value) {
-                      setState(() {
-                        item.isConcluido = value ?? false;
-                      });
-                    },
-                  ),
-                  title: Text(item.titulo),
-                );
-              },
+          if (widget.item.conteudos != null &&
+              widget.item.conteudos!.isNotEmpty)
+            Expanded(
+              child: ListView.builder(
+                itemCount: widget.item.conteudos!.length,
+                itemBuilder: (context, index) {
+                  final item = widget.item.conteudos![index];
+                  return ListTile(
+                    leading: Checkbox(
+                      value: item.isChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          item.isChecked = value ?? false;
+                        });
+                      },
+                    ),
+                    title: Text(item.titulo),
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
