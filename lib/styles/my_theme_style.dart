@@ -74,6 +74,8 @@ class MyThemeStyle {
     cardTheme: CardTheme(
       color: _dark.backgroundDark, // Cor de fundo do Card
     ),
+    checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateColor.resolveWith((states) => _dark.primary)),
     textTheme: TextTheme(
       subtitle1: TextStyle(
         color: _dark.text, // Cor do texto dos itens da lista dentro do Card
