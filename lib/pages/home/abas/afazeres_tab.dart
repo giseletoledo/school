@@ -20,14 +20,8 @@ class _AfazeresTab extends State<AfazeresTab> {
   late AfazerProvider store;
 
   void onDetalhes(AfazerEntity item, int idx) {
-    Navigator.pushNamed(
-      context,
-      AppRoutes.detalhe,
-      arguments: {
-        'item': item,
-        'index': idx,
-      },
-    );
+    store.selecionado = item;
+    Navigator.pushNamed(context, AppRoutes.detalhe, arguments: idx);
   }
 
   @override
@@ -79,7 +73,6 @@ class _AfazeresTab extends State<AfazeresTab> {
   }
 
   void handleExcluir(int index) {
-    AfazerEntity item = store.listaAfazeres[index];
-    store.removerItem(item);
+    store.removerItem(index);
   }
 }

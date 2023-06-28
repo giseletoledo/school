@@ -4,15 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:school/entities/afazer_entity.dart';
 
 import '../../components/body_component.dart';
+import '../../components/spacer_component.dart';
 import '../../providers/afazer_provider.dart';
 import '../../services/picker_service.dart';
 import 'components/detalhe_header.dart';
+import 'components/detalhe_item_widget.dart';
+import 'components/detalhe_menu_widget.dart';
 
 class DetalhePage extends StatefulWidget {
-  final AfazerEntity item;
-  final int index;
-
-  const DetalhePage({super.key, required this.item, required this.index});
+  const DetalhePage({super.key});
 
   @override
   State<DetalhePage> createState() => _DetalhePageState();
@@ -20,55 +20,81 @@ class DetalhePage extends StatefulWidget {
 
 class _DetalhePageState extends State<DetalhePage> {
   late AfazerProvider store;
+  int? idx;
 
   void onEditImage() async {
     final pickerService = PickerService();
     final image = await pickerService.getImage(ImageSource.gallery);
     if (image != null) {
       final base64 = pickerService.base64(await image.readAsBytes());
-      store.atualizarItemAfazer(widget.index, base64);
+      store.selecionado!.image = base64;
+      store.atualizarItemAfazer(idx!);
     }
+  }
+
+  void onDone() {
+    store.selecionado!.isConcluido = true;
+    store.atualizarItemAfazer(idx!);
+  }
+
+  void onDelete() {
+    store.removerItem(idx!);
+    Navigator.pop(context);
+  }
+
+  void itemOnChange(int index, bool val) {
+    store.selecionado!.conteudos[index].isChecked = val;
+    store.atualizarItemAfazer(idx!);
+  }
+
+  List<Widget> lista() {
+    return store.selecionado!.conteudos.asMap().entries.map((elemento) {
+      return DetalheItemWidget(
+        item: elemento.value,
+        onChanged: (val) {
+          itemOnChange(elemento.key, val ?? false);
+        },
+      );
+    }).toList();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    store = Provider.of<AfazerProvider>(context);
+    final arg = ModalRoute.of(context)?.settings.arguments;
+    if (arg != null) {
+      idx = arg as int;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     store = Provider.of<AfazerProvider>(context);
 
+    if (store.selecionado == null) {
+      Navigator.of(context).pop();
+      return const Text('Selecione um item da lista.');
+    }
+
     return BodyComponent(
-      child: Column(
-        children: [
-          DetalheHeaderWidget(
-            item: widget.item,
-            onEdit: onEditImage,
-          ),
-          if (widget.item.conteudos != null &&
-              widget.item.conteudos!.isNotEmpty)
-            Expanded(
-              child: ListView.builder(
-                itemCount: widget.item.conteudos!.length,
-                itemBuilder: (context, index) {
-                  final item = widget.item.conteudos![index];
-                  return ListTile(
-                    leading: Checkbox(
-                      value: item.isChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          item.isChecked = value ?? false;
-                        });
-                      },
-                    ),
-                    title: Text(item.titulo),
-                  );
-                },
-              ),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(0),
+        child: Column(
+          children: [
+            DetalheHeaderWidget(
+              item: store.selecionado!,
+              onEdit: onEditImage,
             ),
-        ],
+            const SpacerComponent(),
+            DetalheMenuWidget(
+              item: store.selecionado!,
+              onDone: onDone,
+              onDelete: onDelete,
+            ),
+            const SpacerComponent(),
+            ...lista(),
+          ],
+        ),
       ),
     );
   }

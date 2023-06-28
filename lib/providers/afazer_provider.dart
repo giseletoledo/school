@@ -6,11 +6,26 @@ import '../services/afazer_service.dart';
 class AfazerProvider with ChangeNotifier {
   final service = AfazerService();
   List<AfazerEntity> _listaAfazeres = [];
+  AfazerEntity? _selecionado;
+  int? _idx;
 
   List<AfazerEntity> get listaAfazeres => _listaAfazeres;
 
+  AfazerEntity? get selecionado => _selecionado;
+
+  set selecionado(AfazerEntity? val) {
+    _selecionado = val;
+    notifyListeners();
+  }
+
+  set idx(int val) {
+    _idx = val;
+    notifyListeners();
+  }
+
   set listaAfazeres(List<AfazerEntity> val) {
     _listaAfazeres = val;
+    service.salvar(_listaAfazeres);
     notifyListeners();
   }
 
@@ -22,9 +37,11 @@ class AfazerProvider with ChangeNotifier {
     listaAfazeres = await service.buscar();
   }
 
-  void atualizarItemAfazer(int idx, String image) {
-    listaAfazeres.elementAt(idx).image = image;
-    notifyListeners();
+  void atualizarItemAfazer(int idx) {
+    if (selecionado != null) {
+      _listaAfazeres[idx] = _selecionado!;
+      notifyListeners();
+    }
   }
 
   adicionarItem(AfazerEntity item) {
@@ -33,8 +50,8 @@ class AfazerProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  removerItem(AfazerEntity item) {
-    listaAfazeres.remove(item);
+  removerItem(int index) {
+    listaAfazeres.removeAt(index);
     service.salvar(listaAfazeres);
     notifyListeners();
   }

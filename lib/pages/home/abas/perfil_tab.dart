@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components/icon_button_component.dart';
 import '../../../components/spacer_component.dart';
+import '../../../providers/afazer_provider.dart';
+import '../../../providers/config_provider.dart';
 
-class PerfilTab extends StatelessWidget {
+class PerfilTab extends StatefulWidget {
   const PerfilTab({super.key});
 
   @override
+  State<PerfilTab> createState() => _PerfilTabState();
+}
+
+class _PerfilTabState extends State<PerfilTab> {
+  late AfazerProvider store;
+  late ConfigProvider storeConfig;
+
+  @override
   Widget build(BuildContext context) {
+    store = Provider.of<AfazerProvider>(context);
+    storeConfig = Provider.of<ConfigProvider>(context);
+
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -34,21 +48,24 @@ class PerfilTab extends StatelessWidget {
           style: TextStyle(fontSize: 18),
         ),
         const SizedBox(height: 16),
-        const Row(children: [
-          Icon(Icons.list),
-          SizedBox(width: 8),
-          Text('Total de notas: '),
-          Text('0'),
+        Row(children: [
+          const Icon(Icons.list),
+          const SizedBox(width: 8),
+          const Text('Total de notas: '),
+          Text(store.listaAfazeres.length.toString()),
         ]),
         const SpacerComponent(),
-        const Row(children: [
-          Icon(Icons.list),
-          SizedBox(width: 8),
-          Text('Concluídas: '),
-          Text('0'),
+        Row(children: [
+          const Icon(Icons.list),
+          const SizedBox(width: 8),
+          const Text('Concluídas: '),
+          Text(store.listaAfazeres
+              .where((element) => element.isConcluido == true)
+              .length
+              .toString()),
         ]),
         const SpacerComponent(),
-        const Divider(),
+        const SpacerComponent(isHorizontal: true, isFull: true),
         const SpacerComponent(),
         const Text(
           'Minhas estatísticas',
@@ -57,8 +74,12 @@ class PerfilTab extends StatelessWidget {
         const SizedBox(height: 16),
         Row(children: [
           const Text('Tema escuro'),
-          const SpacerComponent(isFull: true),
-          Switch(value: true, onChanged: (val) {}),
+          const SpacerComponent(isHorizontal: true),
+          Switch(
+              value: storeConfig.tema == ThemeMode.dark,
+              onChanged: (val) {
+                storeConfig.tema = val ? ThemeMode.dark : ThemeMode.light;
+              }),
         ])
       ]),
     );

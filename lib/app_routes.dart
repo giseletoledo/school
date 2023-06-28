@@ -11,13 +11,7 @@ class AppRoutes {
   static Map<String, Widget Function(BuildContext)> routes() {
     return {
       initialRoute: (context) => const HomePage(),
-      detalhe: (context) {
-        final arguments =
-            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-        final item = arguments['item'] as AfazerEntity;
-        final index = arguments['index'] as int;
-        return DetalhePage(item: item, index: index);
-      },
+      detalhe: (context) => const DetalhePage(),
     };
   }
 }
