@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:school/styles/my_theme_style.dart';
 import 'app_routes.dart';
 import 'providers/config_provider.dart';
 
@@ -21,9 +22,8 @@ class _MyAppState extends State<MyApp> {
       title: 'School',
       routes: AppRoutes.routes(),
       themeMode: storeConfig.tema,
-      theme: storeConfig.tema == ThemeMode.dark
-          ? ThemeData.dark()
-          : ThemeData.light(),
+      theme: MyThemeStyle.claro,
+      darkTheme: MyThemeStyle.escuro,
     );
   }
 }
