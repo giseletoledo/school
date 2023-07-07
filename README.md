@@ -1,6 +1,6 @@
 # School 
 
-Curso de Flutter na prática
+Turma de Flutter na prática da School MJV
 
 ## Lista de tarefas
 
